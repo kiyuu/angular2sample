@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="MyApp"> <!-- モジュールを指定 -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+
+<title>AngularJS 1 サンプル3</title>
+
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+  var myApp = angular.module("MyApp", []);
+
+  myApp.controller("MyController", ["$scope", function($scope) {
+  $scope.phones =  [
+    {"name":"Xperia Z5", "vendor":"ソニー", "locale": "JP"},
+    {"name":"Galaxy S7 edge", "vendor":"サムスン", "locale": "KR"},
+    {"name":"Zenfone 3", "vendor":"エイスース", "locale": "TW"},
+    {"name":"HUAWEI P9", "vendor":"ファーウェイ", "locale": "CN"},
+    {"name":"arrows M03", "vendor":"富士通", "locale": "JP"},
+  ];
+}]);
+</script>
+</head>
+
+<body ng-controller="MyController">
+  <h1>AngularJS 1 サンプル3</h1>
+  <h3>ディレクティブ（繰り返し・条件分岐）</h3>
+    <ul>
+      <!-- ng-repeat属性で繰り返し -->
+      <li ng-repeat="phone in phones">
+        <!-- phoneオブジェクトの値を参照 -->
+        {{phone.name}}は{{phone.vendor}}の製品です。
+        <!-- ng-if属性で条件分岐 -->
+        <span ng-if="phone.locale=='JP'" ng-style="{'color':'red'}">
+          ※国産です
+        </span>
+      </li>
+    </ul>
+</body>
+</html>

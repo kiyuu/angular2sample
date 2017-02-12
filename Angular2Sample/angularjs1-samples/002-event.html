@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="MyApp"> <!-- モジュールを指定 -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+
+<title>AngularJS 1 サンプル2</title>
+
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+  var myApp = angular.module("MyApp", []);
+
+  myApp.controller("MyController", ["$scope", function($scope) {
+    /**
+     * イベント引数なしのハンドラ
+     */
+    $scope.onClickButton = function() {
+      alert("ボタンが押されました");
+    };
+
+    /**
+     * イベント引数ありのハンドラ
+     */
+    $scope.onClickButtonWithEvent = function(event) {
+      // targetプロパティでイベントを発生させたオブジェクトを取得
+      var button = event.target;
+
+      // ボタンのラベルをtextContentプロパティから取得して表示
+      alert("ボタン「" + button.textContent + "」が押されました");
+    };
+}]);
+</script>
+</head>
+
+<body ng-controller="MyController">
+  <h1>AngularJS 1 サンプル2</h1>
+
+  <h3>イベント</h3>
+  <!-- ng-click属性でクリックイベントを定義 -->
+  <button ng-click="onClickButton()">ボタン1</button>
+  <button ng-click="onClickButtonWithEvent($event)">ボタン2</button>
+  <button ng-click="onClickButtonWithEvent($event)">ボタン3</button>
+
+</body>
+</html>

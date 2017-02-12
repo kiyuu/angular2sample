@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html ng-app="MyApp"> <!-- モジュールを指定 -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="styles.css">
+
+<title>AngularJS 1 サンプル4</title>
+
+<!-- AngularJS -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+  var myApp = angular.module("MyApp", []);
+
+  myApp.controller("MyController", ["$scope", function($scope) {
+    $scope.formData = {
+      familyName: "山田",
+      givenName: "太郎",
+      age: 40,
+      hobby: "映画鑑賞"
+    };
+    $scope.onSubmitForm = function(form){
+      // フォーム値が妥当でない場合はエラー表示してサブミット中止
+      if (!form.valid) {
+        alert("Validatorエラー発生");
+        return false;
+      }
+      // フォーム値が妥当な場合はサブミット
+      form.submit();
+    };
+  }]);
+</script>
+<style>
+  /* 1回以上選択された場合 */
+  .ng-touched:not(form) {
+    background:#afafaf
+  }
+  /* 1回も選択されてない場合 */
+  .ng-untouched:not(form) {
+   background:#ffffff
+  }
+  /* 値が変更された場合 */
+  .ng-dirty:not(form) {
+    font-style:italic;
+  }
+  /* 値が変更されていない */
+  .ng-pristine:not(form) {
+   font-weight:normal;
+  }
+  /* バリデーターが正しい値と判断 */
+  .ng-valid:not(form) {
+    border:#000000 2px solid;
+  }
+  /* バリデーターが誤った値と判断 */
+  .ng-invalid:not(form) {
+    border:#ff0000 2px solid;
+  }
+</style>
+</head>
+
+<body ng-controller="MyController">
+  <h1>AngularJS 1 サンプル4</h1>
+  <h3>フォームとバリデーター</h3>
+
+  <!-- ngForm形式でフォームを記述 ...（1）-->
+  <form name="myForm" ng-submit="onSubmitForm(myForm)" novalidate>
+
+    <h4>名前</h4>
+    <!-- 必須タイプのバリデーター ...（2）-->
+    <input type="text" name="familyName"
+      ng-model="formData.familyName" required>
+    <input type="text" name="givenName"
+      ng-model="formData.givenName" required>
+
+    <h4>年齢</h4>
+    <!-- パターンタイプのバリデーター ...（3）-->
+    <input type="text" name="age"
+      ng-model="formData.age" pattern="1?[0-9]{0,2}">歳
+
+    <h4>趣味</h4>
+    <!-- 長さタイプのバリデーター ...（4）-->
+    <input type="text" name="hobby"
+      ng-model="formData.hobby" minlength="4">
+
+    <div style="margin-top:20px">
+      <button type="submit">フォーム送信</button>
+    </div>
+  </form>
+</body>
+</html>
